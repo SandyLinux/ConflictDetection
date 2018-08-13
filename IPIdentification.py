@@ -42,7 +42,7 @@ class IPIdentification(object):
             # overlap = 0, no overlaps
             # 1/ -1, they overlaps
         ipOverlaps = (IP(self.ip).overlaps(IP(ip2.getIP())))
-        #print ('iseqaul = ', ipEqual, '   ipoverlaps = ', ipOverlaps)
+
         if( (ipEqual == False) and (ipOverlaps == 0)):
             result = False
         else:
@@ -62,11 +62,9 @@ class IPIdentification(object):
             inOrOut = (IP(self.ip) in IP(ip2.getIP()))
             
             if (inOrOut == True):
-                #print ('in is true', inOrOut)
                 result = True
             else:
                 result = False
-                #print ('is not in ',inOrOut)
         else:
             result = False
 
@@ -86,14 +84,7 @@ class IPIdentification(object):
                 result = True
             else:
                 result = False
-                #print ('in is true, ',inOrOut)
         else:
             result = False
         return result
 
-#ip1 = IPIdentification(1,'10.10.0.0/24')
-
-#ip2 = IPIdentification(1,'10.10.0.0/16')
-
-#print(ip1.isEqual(ip2))
-#print(ip1.isSuperset(ip2))
