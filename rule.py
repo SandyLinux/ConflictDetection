@@ -382,11 +382,8 @@ class Rule(object):
 
 	def hasRedundancyConflict(self, another):
 		result = False
-		print ((self.isSubSet(another)) == True)
-		print (self.index > another.index)
 		global count1
 		comments = ''
-		print (self.action == another.action)
 
 		m = ((self.isSubSet(another) == True) & (self.index > another.index)&(self.action == another.action))
 		
