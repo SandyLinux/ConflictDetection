@@ -1,9 +1,5 @@
 from test1 import *
 
-
-
-
-
 global count1
 
 

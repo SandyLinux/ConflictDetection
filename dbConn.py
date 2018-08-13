@@ -32,7 +32,7 @@ def dbConn():
 
 
 
-    print ('a = ', item_count)
+    #print ('a = ', item_count)
     return mycol
 
 def dbConn2():

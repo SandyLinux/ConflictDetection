@@ -330,13 +330,11 @@ class Rule(object):
 	
 		m = ((self.isSuperSet(another) == True) & (self.index < another.index) & (self.action != another.action))
 		if (m == True):
-				print ('~~~~~~~~~~~~~foound masked conflict between rule ', self.index, 'and rule ',another.index)
+				print ('~~~~~~~~~~~~~found masked conflict between rule ', self.index, 'and rule ',another.index)
 				result = True
 				
 				cfl = Conflict(count1, 'masked', another.index)
-				#print ('conflict add into list ', self.count)
 				self.conflictsList.append(count1)
-
 				count1 += 1
 				mycoll2.insert_one(cfl.toJSON())
 	
@@ -400,7 +398,6 @@ class Rule(object):
 		if ((m == True) or (n == True) or (p == True)):
 				print ('~~~~~~~~~~~~~found redundancy between rule ', self.index, ' and rule ', another.index)
 				result = True
-				print (comments)
 				cfl = Conflict(count1, 'redundancy', self.index, comments)
 				#print ('conflict add into list ', self.count)
 				self.conflictsList.append(count1)
@@ -426,7 +423,6 @@ class Rule(object):
 		else:
 			conflict_type = conflictType.noConflict
 		
-		#print(conflict_type.value , '   ', conflict_type.name)
 		return conflict_type
 
 	def toJSON(self):

@@ -10,7 +10,7 @@ import pymongo
 import json
 from rule import Rule
 from  dbConn import *
-import test2
+#import test2
 
 def  function1():
     while True:

@@ -1,17 +1,22 @@
 from apiReader2 import *
+from ruleEnums import *
 
 rulelists =[]
-rulelists = function1()
-print (len(rulelists))
 
-#lists = iter(rules_list)
-#print('totally there are ', len(rules_list),' records in the rule list')
+#read all rules from database via XML api
+rulelists = function1()
+
+#print (f'there are {len(rulelists)} records ')
+
+
 print ('--------------------------------------')
 print ('|                                    |')
 print ('|            Result Analysis         |')
 print ('|            SYSTEM TESTING          |')
 print ('|                                    |')
 print ('--------------------------------------')
+
+#mock data used in system test, and delete it later
 
 rules_list =[ \
 	Rule( 1,'rule1', '69.212.128.0/30',   '202.103.29.60', 'deny',  'tcp')\
@@ -21,7 +26,6 @@ rules_list =[ \
 	,Rule(5,'rule4', '60.212.128.1',   '0.0.0.0/0',  'allow', 'tcp')\
 	]
 
-
 for i_index,i in enumerate(rules_list):
 	
 	for j_index,j in enumerate(rules_list):
@@ -30,21 +34,18 @@ for i_index,i in enumerate(rules_list):
 		if i_index == j_index:
 			print(' ')		
 		else:
-			print (f'comparing rule {i_index} and rule {j_index}')
-			print ('---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-----|')
-			print ('|            result analysis         |')
-			print ('--------------------------------------')
+			print (f'\ncomparing rule {i_index} and rule {j_index}')
+			#print ('      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~-----|')
+			#print ('----   result analysis               |')
 
 			resl = i.detectConflict(j)
-			print (resl.name)
-			
+			if (resl == conflictType.noConflict):
+				print (resl.name)
 
-#print ('There are ', len(rules_list), ' masked conflict')
-
+#connect to database and save all updates firewall rules into 'PaloRules1' collection
 mycoll = dbConn()
 for i in rules_list:
-	
+	#show rules data
 	i.printRule()
+	# insert data into database
 	mycoll.insert_one(i.toJSON())
-
-
