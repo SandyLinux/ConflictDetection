@@ -30,9 +30,7 @@ for i_index,i in enumerate(rules_list):
 		if i_index == j_index:
 			print(' ')		
 		else:
-			print (f'comparing rule {i_index} and rule {j_index})
-		
-
+			print (f'comparing rule {i_index} and rule {j_index}')
 			print ('---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-----|')
 			print ('|            result analysis         |')
 			print ('--------------------------------------')

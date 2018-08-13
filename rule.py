@@ -348,7 +348,7 @@ class Rule(object):
 		m = ((self.isSuperSet(another) == True) & (self.index > another.index) & (self.action != another.action))
 		
 		if (m == True):
-				print (f'~~~~~~~~~~~~~found generalization conflict between rule {self.index} and {another.index})
+				print (f'~~~~~~~~~~~~~found generalization conflict between rule {self.index} and {another.index}')
 				result = True
 				cfl = Conflict(count1, 'generalization', another.index)
 				#print ('conflict add into list ', self.count)
