@@ -8,8 +8,8 @@ print (len(rulelists))
 #print('totally there are ', len(rules_list),' records in the rule list')
 print ('--------------------------------------')
 print ('|                                    |')
-print ('|            result analysis         |')
-print ('|            UNIT TESTING            |')
+print ('|            Result Analysis         |')
+print ('|            SYSTEM TESTING          |')
 print ('|                                    |')
 print ('--------------------------------------')
 
@@ -21,7 +21,6 @@ rules_list =[ \
 	,Rule(5,'rule4', '60.212.128.1',   '0.0.0.0/0',  'allow', 'tcp')\
 	]
 
-conflicts_list = []
 
 for i_index,i in enumerate(rules_list):
 	
@@ -31,8 +30,7 @@ for i_index,i in enumerate(rules_list):
 		if i_index == j_index:
 			print(' ')		
 		else:
-			#if i.notAssociate(j)
-			print ('\n\ncomparing rule  ', i_index, ' and rule  ',j_index, '\n\n')
+			print (f'comparing rule {i_index} and rule {j_index})
 		
 
 			print ('---~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-----|')
@@ -50,6 +48,5 @@ for i in rules_list:
 	
 	i.printRule()
 	mycoll.insert_one(i.toJSON())
-
 
 

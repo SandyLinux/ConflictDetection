@@ -317,32 +317,29 @@ class Rule(object):
 		if ((self.isEqual(another) == True) & (self.index < another.index) &(self.action != another.action)):
 
 		#if ((i.isRuleEqual(j) == True) &(i.index < j.index) & (i.action != j.action)):
-				print ('~~~~~~~~~masked conflict, equal set b/w', self.index, another.index)
+				print ('~~~~~~~~~found masked conflict between rule ', self.index, 'and rule ',another.index)
 
 				result = True
 				#def __init__(self, cid, types, rid):
-				cfl = Conflict(count1, 'masked', self.index)
+				cfl = Conflict(count1, 'masked', another.index)
 				self.conflictsList.append(count1)
 				#cfl.printInfo()
 				
-				print ('Rule # ' , self.index , ' has a masked conflict with ', another.index)
-				count1+=1#self.count+ 1
+				count1 += 1#self.count+ 1
 				mycoll2.insert_one(cfl.toJSON())
 	
 		m = ((self.isSuperSet(another) == True) & (self.index < another.index) & (self.action != another.action))
 		if (m == True):
-				print ('~~~~~~~~~~~~~masked conflict sub set b/w', self.index, another.index)
+				print ('~~~~~~~~~~~~~foound masked conflict between rule ', self.index, 'and rule ',another.index)
 				result = True
 				
-				cfl = Conflict(count1, 'masked', self.index)
+				cfl = Conflict(count1, 'masked', another.index)
 				#print ('conflict add into list ', self.count)
 				self.conflictsList.append(count1)
 
-				count1+=1#self.count+ 1
+				count1 += 1
 				mycoll2.insert_one(cfl.toJSON())
 	
-				print ('~~~~~~~~~~~~~masked conflict count1/w', count1)
-				#conflicts_list.append(cfl)
 		return result
 
 	def hasGeneralizationConflict(self,another):
@@ -351,16 +348,15 @@ class Rule(object):
 		m = ((self.isSuperSet(another) == True) & (self.index > another.index) & (self.action != another.action))
 		
 		if (m == True):
-				print ('~~~~~~~~~~~~~generalization conflict b/w', self.index, another.index)
+				print (f'~~~~~~~~~~~~~found generalization conflict between rule {self.index} and {another.index})
 				result = True
-				cfl = Conflict(count1, 'generalization', self.index)
+				cfl = Conflict(count1, 'generalization', another.index)
 				#print ('conflict add into list ', self.count)
 				self.conflictsList.append(count1)
 
-				count1 += 1#self.count+ 1
+				count1 += 1
 				mycoll2.insert_one(cfl.toJSON())
 	
-				#conflicts_list.append(cfl)
 		else:
 			result = False
 		return result
@@ -371,14 +367,13 @@ class Rule(object):
 		m = ((self.isCorrelation(another) == True) & (self.action != another.action))
 		
 		if (m == True):
-				print ('~~~~~~~~~~~~~correlation conflict b/w', self.index, another.index)
+				print ('~~~~~~~~~~~~~found correlation conflict between rule ', self.index, 'and rule ', another.index)
 				result = True
-				cfl = Conflict(count1, 'correlation', self.index)
+				cfl = Conflict(count1, 'correlation', another.index)
 				#print ('conflict add into list ', self.count)
 				self.conflictsList.append(count1)
 
-				count1+=1#self.count+ 1
-				#conflicts_list.append(cfl)
+				count1 += 1
 				mycoll2.insert_one(cfl.toJSON())
 	
 		else:
@@ -406,18 +401,16 @@ class Rule(object):
 			comments = 'part of rule '+ str(self.index)+ '  is redundancy in rule '+str(another.index)
 
 		if ((m == True) or (n == True) or (p == True)):
-				print ('~~~~~~~~~~~~~redundancy b/w', self.index, another.index)
+				print ('~~~~~~~~~~~~~found redundancy between rule ', self.index, ' and rule ', another.index)
 				result = True
 				print (comments)
 				cfl = Conflict(count1, 'redundancy', self.index, comments)
-				cfl.printInfo()
 				#print ('conflict add into list ', self.count)
 				self.conflictsList.append(count1)
 
 				count1 += 1#self.count+ 1
 				mycoll2.insert_one(cfl.toJSON())
 	
-				#conflicts_list.append(cfl)
 		else:
 			result = False
 		return result
@@ -447,39 +440,4 @@ class Rule(object):
 		xa = json.dumps(jsoninDB)
 		xb = json.loads(xa)
 		return namedtuple("Rule", xb.keys())(*xb.values())
-
-
-'''ip1 = IPIdentification(1,'10.10.0.0/24')
-ip2  = IPIdentification(2,'10.10.0.0/24')
-
-rule1 = Rule(1,'rule1','10.10.1.1',  '192.168.1.1','deny','tcp')
-
-rule2 = Rule(2,'rule2','10.10.1.0/24',  '192.168.1.1','deny','tcp')
-
-#rule3 = Rule(3,'rule23','10.10.1.12','192.168.1.1','deny','tcp')
-if (rule1.hasMaskedConflict(rule2) == True):
-	for i in rule1.conflictsList:
-		print (i, 'masked')
-
-if (rule1.hasGeneralizationConflict(rule2) == True):
-	for i in rule1.conflictsList:
-		print (i, 'generalization')
-
-if (rule1.hasCorrelationConflict(rule2) == True):
-	for i in rule1.conflictsList:
-		print (i, 'correlatoin ')
-
-
-
-if (rule1.hasRedundancyConflict(rule2) == True):
-	for i in rule1.conflictsList:
-		print (i, 'redundancy ')
-
-rlst = rule1.detectConflict(rule2)
-print (rlst.name )
-#print (conflictType.masked.name, '   ' , conflictType.masked.value)
-'''
-
-
-
 
